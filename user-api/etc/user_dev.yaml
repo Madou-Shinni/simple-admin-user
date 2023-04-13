@@ -9,7 +9,7 @@ Auth:
 
 Log:
   ServiceName: userApiLogger
-  Mode: file
+  Mode: console
   Path: /home/data/logs/user/api
   Level: info
   Compress: false
@@ -51,3 +51,7 @@ CasbinConf:
     e = some(where (p.eft == allow))
     [matchers]
     m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
+
+UserRpc:
+  Endpoints:
+    - 127.0.0.1:8000

@@ -13,8 +13,9 @@ DatabaseConf:
   CacheTime: 5
 
 RedisConf:
-  Host: 127.0.0.1:6379
+  Host: 112.124.14.11:6379
   Type: node
+  Pass: XW123456789a
 
 Log:
   ServiceName: userRpcLogger

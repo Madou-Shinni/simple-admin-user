@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"github.com/zeromicro/go-zero/zrpc"
 	"simple-admin-user-api/internal/config"
 	i18n2 "simple-admin-user-api/internal/i18n"
 	"simple-admin-user-api/internal/middleware"
@@ -33,5 +34,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:    c,
 		Authority: middleware.NewAuthorityMiddleware(cbn, rds, trans).Handle,
 		Trans:     trans,
+		UserRpc:   userclient.NewUser(zrpc.NewClientIfEnable(c.UserRpc)),
 	}
 }

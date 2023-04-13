@@ -33,6 +33,7 @@ func (l *RegisterLogic) Register(req *types.UserInfo) (resp *types.BaseMsgResp, 
 		})
 	if err == nil {
 		// 有用户存在
+		logx.Info("user already register")
 		return nil, errors.New("用户已注册！")
 	}
 
@@ -48,6 +49,7 @@ func (l *RegisterLogic) Register(req *types.UserInfo) (resp *types.BaseMsgResp, 
 			Openpid:  req.Openpid,
 		})
 	if err != nil {
+		logx.Errorf("user-rpc create user error: %s", err.Error())
 		return nil, err
 	}
 	return &types.BaseMsgResp{Msg: l.svcCtx.Trans.Trans(l.ctx, data.Msg)}, nil
