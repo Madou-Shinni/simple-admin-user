@@ -1,0 +1,22 @@
+version: "3.5"
+services:
+  redis:
+    container_name: redis
+    image: redis:6.2.6 #redis:6.0.6
+    restart: always
+    ports:
+      - 6379:6379
+    privileged: true
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    command: redis-server /etc/redis/redis.conf --appendonly yes
+    volumes:
+      - ${REDIS_DIR}/data:/data
+      - ${REDIS_DIR}/conf/redis.conf:/etc/redis/redis.conf
+    networks:
+      - etcdnet
+
+networks:
+  etcdnet:
+    name: etcdnet

@@ -1,0 +1,32 @@
+Name: user.rpc
+ListenOn: 0.0.0.0:8000
+
+DatabaseConf:
+  Type: mysql
+  Host: 127.0.0.1
+  Port: 3306
+  DBName: simple_admin
+  Username: root
+  Password: "123456"
+  MaxOpenConn: 100
+  SSLMode: disable
+  CacheTime: 5
+
+RedisConf:
+  Host: 127.0.0.1:6379
+  Type: node
+
+Log:
+  ServiceName: userRpcLogger
+  Mode: file
+  Path: /home/data/logs/user/rpc
+  Encoding: json
+  Level: info
+  Compress: false
+  KeepDays: 7
+  StackCoolDownMillis: 100
+
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4001
+  Path: /metrics

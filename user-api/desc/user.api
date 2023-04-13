@@ -1,0 +1,109 @@
+import "base.api"
+
+type (
+    // The response data of user information | User信息
+    UserInfo {
+        BaseIDInfo
+
+        // Name
+        Name  string `json:"name,optional"`
+
+        // Gender
+        Gender  string `json:"gender,optional"`
+
+        // Avatar
+        Avatar  string `json:"avatar,optional"`
+
+        // Username
+        Username  string `json:"username,optional"`
+
+        // Mobile
+        Mobile  string `json:"mobile,optional"`
+
+        // IdCard
+        IdCard  string `json:"idCard,optional"`
+
+        // Openpid
+        Openpid  string `json:"openpid,optional"`
+    }
+
+    // The response data of user list | User列表数据
+    UserListResp {
+        BaseDataInfo
+
+        // User list data | User列表数据
+        Data UserListInfo `json:"data"`
+    }
+
+    // User list data | User列表数据
+    UserListInfo {
+        BaseListInfo
+
+        // The API list data | User列表数据
+        Data  []UserInfo  `json:"data"`
+    }
+
+    // Get user list request params | User列表请求参数
+    UserListReq {
+        PageInfo
+
+        // Name
+        Name  string `json:"name,optional"`
+
+        // Gender
+        Gender  string `json:"gender,optional"`
+
+        // Avatar
+        Avatar  string `json:"avatar,optional"`
+    }
+
+    // User information response | User信息返回体
+    UserInfoResp {
+        BaseDataInfo
+
+        // User information | User数据
+        Data UserInfo `json:"data"`
+    }
+)
+
+@server(
+    jwt: Auth
+    group: user
+    middleware: Authority
+)
+
+service user {
+    // Create user information | 创建User
+    @handler createUser
+    post /user/create (UserInfo) returns (BaseMsgResp)
+
+    // Update user information | 更新User
+    @handler updateUser
+    put /user/update (UserInfo) returns (BaseMsgResp)
+
+    // Delete user information | 删除User信息
+    @handler deleteUser
+    delete /user/delete (IDsReq) returns (BaseMsgResp)
+
+    // Get user list | 获取User列表
+    @handler getUserList
+    get /user/list (UserListReq) returns (UserListResp)
+
+    // Get user by ID | 通过ID获取User
+    @handler getUserById
+    get /user (IDReq) returns (UserInfoResp)
+}
+
+@server(
+    group: user
+)
+
+service user {
+    // register | 注册用户
+    @handler register
+    post /user/register (UserInfo) returns (BaseMsgResp)
+
+    // login | 登录
+    @handler login
+    post /user/login (UserInfo) returns (BaseDataInfo)
+}

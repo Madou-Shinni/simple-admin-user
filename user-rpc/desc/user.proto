@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+// User message
+
+message UserInfo {
+  uint64 id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  string name = 4;
+  string gender = 5;
+  string avatar = 6;
+  string username = 7;
+  string mobile = 8;
+  string id_card = 9;
+  string openpid = 10;
+}
+
+message UserListResp {
+  uint64 total = 1;
+  repeated UserInfo data = 2;
+}
+
+message UserListReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  string name = 3;
+  string gender = 4;
+  string avatar = 5;
+}
+
+message OpenpidReq {
+  string openpid = 1;
+}
+
+service User {
+
+  // User management
+  // group: user
+  rpc createUser (UserInfo) returns (BaseIDResp);
+  // group: user
+  rpc updateUser (UserInfo) returns (BaseResp);
+  // group: user
+  rpc getUserList (UserListReq) returns (UserListResp);
+  // group: user
+  rpc getUserById (IDReq) returns (UserInfo);
+  // group: user
+  rpc deleteUser (IDsReq) returns (BaseResp);
+  // group: user
+  rpc getUserByOpenpid(OpenpidReq) returns (UserInfo);
+}
